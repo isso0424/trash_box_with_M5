@@ -37,25 +37,6 @@ void loop() {
   }
 
   Serial.printf("%d\n", getAttitude(accX, accY, accZ));
-  /*
-  if (flat == "No"){
-    if(0.8f > abs(accZ - accY) && abs(accX) < 0.15f){
-      Serial.printf("Y Side is raised\n");
-    }
-    else if(0.8f > abs(accZ - accX) && abs(accY) < 0.15f){
-      Serial.printf("X Side is raised\n");
-    }
-
-    else if(0.8f > abs(accZ + accY) && abs(accX) < 0.15f){
-      Serial.printf("-Y Side is raised\n");
-    }
-    else if(0.8f > abs(accZ + accX) && abs(accY) < 0.15f){
-      Serial.printf("-X Side is raised\n");
-    }
-  }else{
-    Serial.printf("Flat(up is %s", flat);
-  }
-  */
 
   c += 1;
 
@@ -146,19 +127,15 @@ bool notLean(float a){
 }
 
 /*
-2軸に対して傾いていないかを返します
-*/
-bool notLeanToTwoAxis(float a, float b){
-  return notLean(a) && notLean(b);
-}
-
-/*
 aを垂直方向+とした平面上かを判定します
 */
 bool isFlat(float a, float b, float c){
   return notLean(a - 1.0f) && notLean(b) && notLean(c);
 }
 
+/*
+加速度に小さい差があるか判定
+*/
 bool littleDiff(float a, float b){
   return 0.8f > abs(a - b);
 }
